@@ -1,0 +1,27 @@
+.note-detail-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-sidebar {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    min-width: 200px;
+    text-align: center;
+}
+
+.go-back-button {
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.go-back-button:hover {
+    cursor: pointer;
+    background-color: orange;
+}
+
+.note-content {
+    max-width: 400px;
+}

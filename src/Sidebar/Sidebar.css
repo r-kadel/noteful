@@ -1,0 +1,16 @@
+.folders-list {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.add-folder-button {
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.add-folder-button:hover {
+    cursor: pointer;
+    background-color: orange;
+}

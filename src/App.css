@@ -1,0 +1,26 @@
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sidebar {
+  border: 1px solid black;
+}
+
+.main-header {
+  text-align: center;
+}
+
+.main-header:hover {
+  cursor: pointer;
+}
+
+.main-container {
+  display: flex;
+}
+
+.notes-container {
+  flex-grow: 2;
+}

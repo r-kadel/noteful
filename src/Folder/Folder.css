@@ -1,0 +1,11 @@
+.folder {
+    height: 50px;
+    width: 200px;
+    margin-top: 25px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.selected-folder {
+    background-color: orange;
+}

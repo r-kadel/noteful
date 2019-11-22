@@ -1,0 +1,25 @@
+.note {
+    width: 500px;
+    margin-top: 25px;
+    text-align: left;
+    border: 1px solid black;
+    position: relative;
+}
+
+.delete-button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    background-color: orange;
+}
+
+h2, p {
+    padding-left: 20px;
+}
