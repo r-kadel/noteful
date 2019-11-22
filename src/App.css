@@ -20,7 +20,3 @@ main {
 .main-container {
   display: flex;
 }
-
-.notes-container {
-  flex-grow: 2;
-}
