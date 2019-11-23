@@ -16,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1 className="main-header"><Link to="/" style={{ textDecoration: 'none' }}>Noteful</Link></h1>
+        <h1 className="main-header"><Link to="/" style={{ cursor: 'pointer', textDecoration: 'none' }}>Noteful</Link></h1>
         <main className="main-container">
           <Route
             exact path='/'

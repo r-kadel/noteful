@@ -13,10 +13,6 @@ main {
   text-align: center;
 }
 
-.main-header:hover {
-  cursor: pointer;
-}
-
 .main-container {
   display: flex;
 }

@@ -6,9 +6,11 @@ class Folder extends React.Component {
     render() {
         return (
             <div className={`folder ${this.props.className}`}>
-                <Link style={{ textDecoration: 'none' }} to={`/folder/${this.props.folderId}`}>
-                    <h3 className="folder-name">Folder {this.props.name}</h3>
-                </Link>
+                <h3 className="folder-name">
+                    <Link style={{ textDecoration: 'none' }} to={`/folder/${this.props.folderId}`}>
+                        Folder {this.props.name}
+                    </Link>
+                </h3>
             </div>
         )
     }
