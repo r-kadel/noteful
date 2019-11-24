@@ -4,35 +4,62 @@ import './App.css';
 import Home from './Home/Home';
 import STORE from './dummy-store';
 import NoteDetail from './NoteDetail/NoteDetail';
+import NoteContext from './NoteContext'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      store: STORE,
-    }
+  state = {
+    notes: STORE.notes,
+    folders: STORE.folders,
+    folderId: null
   }
   
+// componentDidMount() {
+//   fetch('')
+//   .then(res => res.json())
+//   .then( res => this.setState({
+//     store: res.message
+//   }))
+//   .catch( err => err.message)
+// }
+
+
+updateFolderId = (id) => {
+  this.setState({
+    folderId: id
+  })
+}
+
+
   render() {
+
+    const value = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      updateFolderId: this.updateFolderId,
+      folderId: this.state.folderId
+    }
+
     return (
+      <NoteContext.Provider value={value}>
       <div className="App">
-        <h1 className="main-header"><Link to="/" style={{ cursor: 'pointer', textDecoration: 'none' }}>Noteful</Link></h1>
-        <main className="main-container">
+        <h1 className="main-header" onClick={ () => this.setState({folderId: null})}><Link to="/" style={{ cursor: 'pointer', textDecoration: 'none' }}>Noteful</Link></h1>
+        
           <Route
             exact path='/'
             render={() =>
-              <Home store={this.state.store} />}
+              <Home />}
           />
           <Route
             path='/folder/:folderId'
-            render={(props) => <Home store={this.state.store} props={props} folderId={props.match.params.folderId} />}
-          />
+            component={Home} />
+          
           <Route
             path='/note/:noteId'
             render={(props) => <NoteDetail store={this.state.store} noteId={props.match.params.noteId} goBack={() => props.history.goBack()} />}
           />
-        </main>
+        
       </div>
+      </NoteContext.Provider>
     );
   }
   

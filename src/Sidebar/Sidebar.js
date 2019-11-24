@@ -1,22 +1,31 @@
-import React from 'react';
-import Folder from '../Folder/Folder';
-import './Sidebar.css';
+import React from "react";
+import Folder from "../Folder/Folder";
+import "./Sidebar.css";
+import NoteContext from "../NoteContext";
 
 class Sidebar extends React.Component {
-    render() {
-        const folders = this.props.folders.map((folder, i) => {
-            return (
-                <Folder name={folder.name} key={i} folderId={folder.id} className={(this.props.folderId === folder.id) ? "selected-folder" : ""} />
-            );
-        });
-        
-        return (
-            <div className="folders-list">
-                {folders}
-                <button className="add-folder-button" type="button">Add a folder</button>
-            </div>
-        )
-    }
+  static contextType = NoteContext;
+
+  render() {
+    const folders = this.context.folders.map((folder, i) => {
+      return (
+        <Folder
+          name={folder.name}
+          key={i}
+          folderId={folder.id}
+        />
+      );
+    });
+
+    return (
+      <div className="folders-list">
+        {folders}
+        <button className="add-folder-button" type="button">
+          Add a folder
+        </button>
+      </div>
+    );
+  }
 }
 
 export default Sidebar;
