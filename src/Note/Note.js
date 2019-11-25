@@ -6,6 +6,7 @@ import NoteContext from '../NoteContext'
 class Note extends React.Component {
     static contextType = NoteContext;
 
+
     render() {
         const d = new Date(this.props.modified);
         const day = d.getDay();
@@ -17,11 +18,14 @@ class Note extends React.Component {
             <div className="note">
                 <h2 className="note-title"><Link to={`/note/${this.props.id}`} style={{ textDecoration: 'none' }}>{this.props.name}</Link></h2>
                 <p className="modified-text">Date modified: {month} {day}, {year}</p>
-                <button 
-                    onClick={ () => this.context.handleDelete(this.props.id)}
-                    className="delete-button">
-                    Delete Note
-                </button>
+                <Link to="/">
+                    <button
+                        onClick={ () => this.context.handleDelete(this.props.id)}
+                        className="delete-button">
+                        Delete Note
+                    </button>
+                </Link>
+
             </div>
         )
     }

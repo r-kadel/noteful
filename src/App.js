@@ -38,18 +38,16 @@ class App extends React.Component {
     });
   };
 
-  // handleDelete = id => {
-  //   fetch(`http://localhost:9090/notes/${id}`, {
-  //     method: "DELETE"
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => console.log(res));
-  // };
 
   handleDelete = id => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)        
     });
+    fetch(`http://localhost:9090/notes/${id}`, {
+      method: "DELETE"
+      })
+      .then(res => res.json())
+      .then(res => console.log(res));
 };
 
   render() {
