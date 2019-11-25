@@ -9,6 +9,7 @@ class NoteDetail extends React.Component {
     render() {
         const note = this.context.notes.find(note => note.id === this.props.noteId);
         const folder = this.context.folders.find(folder => folder.id === note.folderId);
+        if(note && folder){
         return (
             <div className="note-detail-container">
                 <div className="left-sidebar">
@@ -23,6 +24,9 @@ class NoteDetail extends React.Component {
                 </div>
             </div>
         )
+        } else {
+            return window.location.replace('http://localhost:3000')
+        }
     }
 }
 
