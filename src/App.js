@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./Home/Home";
 import NoteDetail from "./NoteDetail/NoteDetail";
 import NoteContext from "./NoteContext";
+import AddFolder from './AddFolder/AddFolder'
 
 class App extends React.Component {
   state = {
@@ -38,17 +39,27 @@ class App extends React.Component {
     });
   };
 
-
   handleDelete = id => {
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== id)        
+      notes: this.state.notes.filter(note => note.id !== id)
     });
     fetch(`http://localhost:9090/notes/${id}`, {
       method: "DELETE"
-      })
+    })
       .then(res => res.json())
       .then(res => console.log(res));
-};
+  };
+
+  handleAddForm = id => {
+    this.setState({
+      folders: this.state.folders.push(id)
+    })
+    fetch(`http://localhost:9090/notes/${id}`, {
+      method: "POST"
+    })
+      .then(res => res.json())
+      .then(res => console.log(res))
+  }
 
   render() {
     const value = {
@@ -56,7 +67,8 @@ class App extends React.Component {
       folders: this.state.folders,
       updateFolderId: this.updateFolderId,
       folderId: this.state.folderId,
-      handleDelete: this.handleDelete
+      handleDelete: this.handleDelete,
+      handleAddForm: this.handleAddForm
     };
 
     return (
@@ -71,9 +83,9 @@ class App extends React.Component {
             </Link>
           </h1>
 
-          <Route exact path="/" render={() => <Home />} />
+          <Route exact path="/" component={Home} />
           <Route path="/folder/:folderId" component={Home} />
-
+          <Route path="/addFolder" component={AddFolder} />
           <Route
             path="/note/:noteId"
             render={props => (

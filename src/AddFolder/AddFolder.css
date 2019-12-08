@@ -1,0 +1,35 @@
+.form-container {
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.add-folder {
+display: block;
+text-align: center;
+grid-column: 3 / 5;
+}
+
+#name {
+    margin-top: 1.3em;
+    
+}
+
+.submit-button{
+    margin-top: 1.4em;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.submit-button:hover, .back-button:hover {
+    cursor: pointer;
+    background-color: orange;
+}
+
+.back-button {
+    grid-column: 2;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+    
+}
