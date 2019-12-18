@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Note.css';
 import NoteContext from '../NoteContext'
+import PropTypes from 'prop-types'
 
 class Note extends React.Component {
     static contextType = NoteContext;
@@ -16,7 +17,12 @@ class Note extends React.Component {
 
         return (
             <div className="note">
-                <h2 className="note-title"><Link to={`/note/${this.props.id}`} style={{ textDecoration: 'none' }}>{this.props.name}</Link></h2>
+                <h2 className="note-title">
+                    <Link to={`/note/${this.props.id}`} 
+                        style={{ textDecoration: 'none' }}>
+                        {this.props.name}
+                    </Link>
+                    </h2>
                 <p className="modified-text">Date modified: {month} {day}, {year}</p>
                 <Link to="/">
                     <button
@@ -29,6 +35,11 @@ class Note extends React.Component {
             </div>
         )
     }
+}
+
+Note.propTypes = {
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired
 }
 
 export default Note;

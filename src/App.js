@@ -5,6 +5,7 @@ import Home from "./Home/Home";
 import NoteDetail from "./NoteDetail/NoteDetail";
 import NoteContext from "./NoteContext";
 import AddFolder from './AddFolder/AddFolder'
+import AddNote from './AddNote/AddNote'
 
 class App extends React.Component {
   state = {
@@ -50,16 +51,45 @@ class App extends React.Component {
       .then(res => console.log(res));
   };
 
-  handleAddForm = id => {
-    this.setState({
-      folders: this.state.folders.push(id)
-    })
-    fetch(`http://localhost:9090/notes/${id}`, {
-      method: "POST"
-    })
-      .then(res => res.json())
-      .then(res => console.log(res))
+	addFolder = folderName => {
+		fetch(`http://localhost:9090/folders`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name: folderName })
+		})
+			.then(res => res.json())
+			.then(resJSON => {
+				const newFolders = [...this.state.folders, resJSON]
+				this.setState({ folders: newFolders })
+
+			})
+			.catch(err => {
+				console.log(err)
+			})
   }
+  
+  addNote = note => {
+		fetch(`http://localhost:9090/notes`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(note)
+		})
+			.then(res => res.json())
+			.then(newNote => {
+				const newNotes = [...this.state.notes, newNote]
+				this.setState({ notes: newNotes })
+
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
 
   render() {
     const value = {
@@ -68,7 +98,8 @@ class App extends React.Component {
       updateFolderId: this.updateFolderId,
       folderId: this.state.folderId,
       handleDelete: this.handleDelete,
-      handleAddForm: this.handleAddForm
+      addFolder: this.addFolder,
+      addNote: this.addNote
     };
 
     return (
@@ -86,13 +117,12 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route path="/folder/:folderId" component={Home} />
           <Route path="/addFolder" component={AddFolder} />
+          <Route path="/addNote" component={AddNote} />
           <Route
             path="/note/:noteId"
             render={props => (
-              <NoteDetail
-                store={this.state.store}
+              <NoteDetail               
                 noteId={props.match.params.noteId}
-                goBack={() => props.history.goBack()}
               />
             )}
           />

@@ -2,6 +2,7 @@ import React from "react";
 import Note from "../Note/Note";
 import "./NotesList.css";
 import NoteContext from "../NoteContext";
+import { Link } from 'react-router-dom'
 
 class NotesList extends React.Component {
   static contextType = NoteContext;
@@ -22,9 +23,11 @@ class NotesList extends React.Component {
     return (
       <div className="notes-container">
         {notes}
+        <Link to='/addNote'>
         <button className="add-note-button" type="button">
           Add a note
         </button>
+        </Link>
       </div>
     );
   }
