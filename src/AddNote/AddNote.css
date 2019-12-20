@@ -1,0 +1,52 @@
+.form-container {
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.add-note {
+display: block;
+text-align: center;
+grid-column: 3 / 5;
+}
+
+#note-name {
+    font-size: 1.3em;
+}
+
+.submit-button{
+    margin-top: 1.4em;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.submit-button:hover, .back-button:hover {
+    cursor: pointer;
+    background-color: orange;
+}
+
+.back-button {
+    grid-column: 2;
+    height: 25px;
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.note-textbox {
+    width: 45%;
+    height: 200px;
+    margin-top: 1.4em;
+    margin-bottom: 1.3em;
+}
+
+.selectbox {
+    font-size: 1em;
+
+}

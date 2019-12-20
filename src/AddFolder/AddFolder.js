@@ -6,10 +6,6 @@ class AddFolder extends Component {
 
   static contextType = NoteContext;
 
-  // Need to finish the POST request first
-  // I need to update APP component function to post an ID as well as name
-  // Get Name from user input and find a way to random generate an ID on submit
-  // Then post to server
 
   handleSubmit = (e) => {
     e.preventDefault()
