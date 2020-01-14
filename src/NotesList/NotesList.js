@@ -10,19 +10,27 @@ class NotesList extends React.Component {
   render() {
     const noteList = this.context.folderId
       ? this.context.notes.filter(
-          note => note.folderId === this.context.folderId
+          note => note.folder_id === this.context.folderId
         )
-      : this.context.notes;
+      : []
 
-    const notes = noteList.map((note, i) => {
-      return (
-        <Note name={note.name} modified={note.modified} id={note.id} key={i} />
-      );
-    });
+    const notes = () => {
+      if(noteList.length > 0) {
+        return noteList.map(note => {
+            return (
+              <Note name={note.name} title={note.title} modified={note.date_created} id={note.id} key={note.id} />
+            )
+        })
+      } else {
+        return (
+          <h1>No notes!</h1>
+        )
+      }
+    }
 
     return (
       <div className="notes-container">
-        {notes}
+        {notes()}
         <Link to='/addNote'>
         <button className="add-note-button" type="button">
           Add a note

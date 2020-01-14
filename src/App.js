@@ -16,8 +16,8 @@ class App extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:9090/notes"),
-      fetch("http://localhost:9090/folders")
+      fetch("http://localhost:8000/api/notes"),
+      fetch("http://localhost:8000/api/folders")
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok) return notesRes.json().then(e => Promise.reject(e));
@@ -44,7 +44,7 @@ class App extends React.Component {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)
     });
-    fetch(`http://localhost:9090/notes/${id}`, {
+    fetch(`http://localhost:8000/notes/${id}`, {
       method: "DELETE"
     })
       .then(res => res.json())
@@ -52,7 +52,7 @@ class App extends React.Component {
   };
 
 	addFolder = folderName => {
-		fetch(`http://localhost:9090/folders`, {
+		fetch(`http://localhost:8000/folders`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
   
   addNote = note => {
-		fetch(`http://localhost:9090/notes`, {
+		fetch(`http://localhost:8000/notes`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
