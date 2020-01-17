@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import Note from '../Note/Note';
 import './NoteDetail.css';
 import NoteContext from '../NoteContext'
-import PropTypes from 'prop-types'
 
 class NoteDetail extends React.Component {
     static contextType = NoteContext;
    
     render() {
-        const note = this.context.notes.find(note => note.id === this.props.noteId);
-        const folder = this.context.folders.find(folder => folder.id === note.folder_id);
-        
+        const note = this.context.notes.find(note => note.id === parseInt(this.props.match.params.noteId));    
         return (
             <div className="note-detail-container">
                 <div className="left-sidebar">
@@ -24,13 +21,13 @@ class NoteDetail extends React.Component {
                             Go Back
                         </button>
                     </Link>
-                    <h2>{folder.folder_name}</h2>
+                    <h2>{note.folder_id}</h2>
                 </div>
                 <div className="note-details">
                     <Note 
                         id={this.props.noteId} 
-                        name={note.name} 
-                        modified={note.modified} 
+                        name={note.title} 
+                        modified={note.date_created} 
                     />
                     <p className="note-content">{note.content}</p>
                 </div>
@@ -38,10 +35,6 @@ class NoteDetail extends React.Component {
         )
          
     }
-}
-
-NoteDetail.propTypes ={
-    noteId: PropTypes.string.isRequired
 }
 
 export default NoteDetail;

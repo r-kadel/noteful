@@ -7,17 +7,19 @@ import NoteContext from "./NoteContext";
 import AddFolder from './AddFolder/AddFolder'
 import AddNote from './AddNote/AddNote'
 
+const API_ENDPOINT = "https://boiling-crag-74706.herokuapp.com/api"
+
 class App extends React.Component {
   state = {
     notes: [],
     folders: [],
     folderId: null
   };
-
+  
   componentDidMount() {
     Promise.all([
-      fetch("http://localhost:8000/api/notes"),
-      fetch("http://localhost:8000/api/folders")
+      fetch(`${API_ENDPOINT}/notes`),
+      fetch(`${API_ENDPOINT}/folders`)
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok) return notesRes.json().then(e => Promise.reject(e));
@@ -44,48 +46,45 @@ class App extends React.Component {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)
     });
-    fetch(`http://localhost:8000/notes/${id}`, {
-      method: "DELETE"
+    fetch(`${API_ENDPOINT}/notes/${id}`, {
+      method: "DELETE",
+      headers: {
+				'content-type': 'application/json'
+			}
     })
       .then(res => res.json())
       .then(res => console.log(res));
   };
 
-	addFolder = folderName => {
-		fetch(`http://localhost:8000/folders`, {
+	addFolder = (folder, id) => {
+    const newFolders = [...this.state.folders, {name: folder, id: id}]
+    this.setState({ folders: newFolders })
+
+		fetch(`${API_ENDPOINT}/folders`, {
 			method: 'POST',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ name: folderName })
+			body: JSON.stringify({ folder_name: folder })
 		})
 			.then(res => res.json())
-			.then(resJSON => {
-				const newFolders = [...this.state.folders, resJSON]
-				this.setState({ folders: newFolders })
-
-			})
 			.catch(err => {
 				console.log(err)
 			})
   }
   
   addNote = note => {
-		fetch(`http://localhost:8000/notes`, {
+      const newNotes = [...this.state.notes, note]
+      this.setState({ notes: newNotes })
+    
+		fetch(`${API_ENDPOINT}/notes`, {
 			method: 'POST',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(note)
 		})
 			.then(res => res.json())
-			.then(newNote => {
-				const newNotes = [...this.state.notes, newNote]
-				this.setState({ notes: newNotes })
-
-			})
 			.catch(err => {
 				console.log(err)
 			})
@@ -120,11 +119,7 @@ class App extends React.Component {
           <Route path="/addNote" component={AddNote} />
           <Route
             path="/note/:noteId"
-            render={props => (
-              <NoteDetail               
-                noteId={props.match.params.noteId}
-              />
-            )}
+            component={NoteDetail}
           />
         </div>
       </NoteContext.Provider>

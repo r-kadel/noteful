@@ -8,12 +8,12 @@ class AddNote extends Component {
   handleSubmit = e => {
     e.preventDefault();
     
-    const name = e.target.noteName.value
+    const title = e.target.noteName.value
 		const content = e.target.noteContent.value
-		const folderId = e.target.folderId.value
-		const modified = new Date()
+		const folder_id = e.target.folderId.value
+		const date_created = new Date()
 
-		this.context.addNote({ name, content, folderId, modified })
+		this.context.addNote({ title, content, folder_id, date_created })
 
     this.props.history.goBack();
   };
@@ -57,7 +57,6 @@ class AddNote extends Component {
               </label>
             </div>
           </div>
-
           <button className="submit-button" type="submit">
             Save
           </button>

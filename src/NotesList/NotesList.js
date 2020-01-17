@@ -12,13 +12,13 @@ class NotesList extends React.Component {
       ? this.context.notes.filter(
           note => note.folder_id === this.context.folderId
         )
-      : []
+      : this.context.notes
 
     const notes = () => {
       if(noteList.length > 0) {
         return noteList.map(note => {
             return (
-              <Note name={note.name} title={note.title} modified={note.date_created} id={note.id} key={note.id} />
+              <Note name={note.title} title={note.title} modified={note.date_created} id={note.id} key={note.id} />
             )
         })
       } else {

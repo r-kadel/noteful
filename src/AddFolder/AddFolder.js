@@ -9,7 +9,7 @@ class AddFolder extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.context.addFolder(e.target.folderName.value)
+    this.context.addFolder(e.target.folderName.value, e.target.id.value)
     this.props.history.goBack()
   }
 
