@@ -16,9 +16,9 @@ class NotesList extends React.Component {
 
     const notes = () => {
       if(noteList.length > 0) {
-        return noteList.map(note => {
+        return noteList.map((note, i) => {
             return (
-              <Note name={note.title} title={note.title} modified={note.date_created} id={note.id} key={note.id} />
+              <Note name={note.title} title={note.title} modified={note.date_created} id={note.id} key={i} />
             )
         })
       } else {

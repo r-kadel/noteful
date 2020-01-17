@@ -8,7 +8,8 @@ class NoteDetail extends React.Component {
     static contextType = NoteContext;
    
     render() {
-        const note = this.context.notes.find(note => note.id === parseInt(this.props.match.params.noteId));    
+        const note = this.context.notes.find(note => note.id === parseInt(this.props.match.params.noteId))
+        console.log(note)  
         return (
             <div className="note-detail-container">
                 <div className="left-sidebar">

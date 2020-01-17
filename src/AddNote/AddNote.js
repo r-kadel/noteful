@@ -1,30 +1,31 @@
-import React, { Component } from "react";
-import "./AddNote.css";
-import NoteContext from "../NoteContext";
+import React, { Component } from "react"
+import "./AddNote.css"
+import NoteContext from "../NoteContext"
 
 class AddNote extends Component {
-  static contextType = NoteContext;
+  static contextType = NoteContext
 
   handleSubmit = e => {
-    e.preventDefault();
-    
+    e.preventDefault()
+
     const title = e.target.noteName.value
-		const content = e.target.noteContent.value
-		const folder_id = e.target.folderId.value
-		const date_created = new Date()
+    const content = e.target.noteContent.value
+    const folder_id = e.target.folderId.value
+    const date_created = new Date()
 
-		this.context.addNote({ title, content, folder_id, date_created })
+    this.context.addNote({ title, content, folder_id, date_created })
 
-    this.props.history.goBack();
-  };
+    this.props.history.push('/')
+  }
 
-  folderOptions = () => this.context.folders.map(folder => {
-    return (
+  folderOptions = () =>
+    this.context.folders.map(folder => {
+      return (
         <option value={folder.id} key={folder.id}>
-            {folder.name}
+          {folder.name}
         </option>
-    )
-  })
+      )
+    })
 
   render() {
     return (
@@ -50,19 +51,18 @@ class AddNote extends Component {
             <div>
               <label>
                 Select a folder:{" "}
-                <select 
-                className="selectbox" 
-                name="folderId">{this.folderOptions()}
+                <select className="selectbox" name="folderId">
+                  {this.folderOptions()}
                 </select>
               </label>
             </div>
           </div>
-          <button className="submit-button" type="submit">
-            Save
-          </button>
+            <button className="submit-button" type="submit">
+              Save
+            </button>
         </form>
       </div>
-    );
+    )
   }
 }
 
