@@ -9,7 +9,7 @@ class NoteDetail extends React.Component {
    
     render() {
         const note = this.context.notes.find(note => note.id === parseInt(this.props.match.params.noteId))
-        console.log(note)  
+        const folder = this.context.folders.find(folder => folder.id === note.folder_id)
         return (
             <div className="note-detail-container">
                 <div className="left-sidebar">
@@ -22,7 +22,7 @@ class NoteDetail extends React.Component {
                             Go Back
                         </button>
                     </Link>
-                    <h2>{note.folder_id}</h2>
+                    <h2>{folder.name}</h2>
                 </div>
                 <div className="note-details">
                     <Note 
