@@ -13,7 +13,7 @@ class Note extends React.Component {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const month = months[d.getMonth()];
         const year = d.getFullYear();
-
+        
         return (
             <div className="note">
                 <h2 className="note-title">
@@ -25,7 +25,7 @@ class Note extends React.Component {
                 <p className="modified-text">Date modified: {month} {day}, {year}</p>
                 <Link to="/">
                     <button
-                        onClick={ () => this.context.handleDelete(this.props.id)}
+                        onClick={ () => this.context.handleDelete(parseInt(this.props.id))}
                         className="delete-button">
                         Delete Note
                     </button>

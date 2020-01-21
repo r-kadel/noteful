@@ -6,7 +6,6 @@ import NoteContext from '../NoteContext'
 
 class NoteDetail extends React.Component {
     static contextType = NoteContext;
-   
     render() {
         const note = this.context.notes.find(note => note.id === parseInt(this.props.match.params.noteId))
         const folder = this.context.folders.find(folder => folder.id === note.folder_id)
@@ -26,7 +25,7 @@ class NoteDetail extends React.Component {
                 </div>
                 <div className="note-details">
                     <Note 
-                        id={this.props.noteId} 
+                        id={this.props.match.params.noteId} 
                         name={note.title} 
                         modified={note.date_created} 
                     />

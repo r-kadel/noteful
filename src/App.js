@@ -16,24 +16,26 @@ class App extends React.Component {
     folderId: null
   }
 
-  componentDidMount() {
-    Promise.all([
-      fetch(`${API_ENDPOINT}/notes`),
-      fetch(`${API_ENDPOINT}/folders`)
-    ])
-      .then(([notesRes, foldersRes]) => {
-        if (!notesRes.ok) return notesRes.json().then(e => Promise.reject(e))
-        if (!foldersRes.ok)
-          return foldersRes.json().then(e => Promise.reject(e))
+	fetchNotes = () => {
+		fetch(`${API_ENDPOINT}/notes`)
+      .then(res => res.json())
+			.then(resJSON => this.setState({ notes: resJSON }))
+			.catch(err => {
+				console.log(err)
+			})
+  }
 
-        return Promise.all([notesRes.json(), foldersRes.json()])
-      })
-      .then(([notes, folders]) => {
-        this.setState({ notes, folders })
-      })
-      .catch(error => {
-        console.error({ error })
-      })
+  fetchFolders = () => {
+		fetch(`${API_ENDPOINT}/folders`)
+      .then(res => res.json())
+      .then(resJSON => this.setState({ folders: resJSON }))
+			.catch(err => {
+				console.log(err)
+			})
+	}
+  componentDidMount() {
+    this.fetchFolders()
+    this.fetchNotes()
   }
 
   updateFolderId = id => {
@@ -55,9 +57,7 @@ class App extends React.Component {
   }
 
   addFolder = (folder, id) => {
-    const newFolders = [...this.state.folders, { name: folder, id: id }]
-    this.setState({ folders: newFolders })
-
+ 
     fetch(`${API_ENDPOINT}/folders`, {
       method: "POST",
       headers: {
@@ -65,15 +65,13 @@ class App extends React.Component {
       },
       body: JSON.stringify({ folder_name: folder })
     })
+    .then(this.fetchFolders)
       .catch(err => {
         console.log(err)
       })
   }
 
   addNote = note => {
-    console.log(note)
-    const newNotes = [...this.state.notes, note]
-    this.setState({ notes: newNotes, folderId: null })
     fetch(`${API_ENDPOINT}/notes`, {
       method: "POST",
       headers: {
@@ -81,6 +79,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(note)
     })
+    .then(this.fetchNotes)
       .catch(err => {
         console.log(err)
       })
